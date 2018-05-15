@@ -19,7 +19,7 @@ public class Payload {
 
     private Map<String, Object> params;
 
-    private String alert;
+    private Alert alert;
 
     private Integer badge;
 
@@ -37,16 +37,32 @@ public class Payload {
 
     private String alertLaunchImage;
 
+    private Integer mutablecontent;
+
+    private String media;
+
+
+    private String category;
+
+
     public Payload() {
     }
 
     public static void main(String[] args) {
         Payload payload = new Payload();
-        payload.setAlert("How are you?");
-        payload.setBadge(Integer.valueOf(1));
-        payload.setSound("a");
-        payload.addParam("para1", "1231dfasfwer");
-        payload.addParam("number", Long.valueOf(12312312312L));
+        Alert alert = new Alert();
+        alert.setTitle("这是标题");
+        alert.setBody("这是内容");
+        alert.setSubtitle("这是简介");
+        payload.setAlert(alert);
+        payload.addParam("media", new HashMap<String, String>() {{
+            put("type", "video");
+            put("url", "http://olxnvuztq.bkt.clouddn.com/WeChatSight1.mp4");
+        }});
+        payload.setMutablecontent(1);
+        payload.setCategory("realtime");
+        payload.setBadge(1);
+        payload.setSound("default");
         System.out.println(payload.toString());
     }
 
@@ -70,11 +86,11 @@ public class Payload {
         }
     }
 
-    public String getAlert() {
+    public Alert getAlert() {
         return this.alert;
     }
 
-    public void setAlert(String alert) {
+    public void setAlert(Alert alert) {
         this.alert = alert;
     }
 
@@ -92,6 +108,30 @@ public class Payload {
 
     public void setSound(String sound) {
         this.sound = sound;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Integer getMutablecontent() {
+        return mutablecontent;
+    }
+
+    public void setMutablecontent(Integer mutablecontent) {
+        this.mutablecontent = mutablecontent;
+    }
+
+    public String getMedia() {
+        return media;
+    }
+
+    public void setMedia(String media) {
+        this.media = media;
     }
 
     public String toString() {
@@ -129,7 +169,9 @@ public class Payload {
         if (this.getContentAvailable() != null) {
             apsObj.put("content-available", Integer.valueOf(this.getContentAvailable().intValue()));
         }
-
+        if (this.getMutablecontent() != null) {
+            apsObj.put("mutable-content", Integer.valueOf(this.getMutablecontent().intValue()));
+        }
         object.put("aps", apsObj);
         if (this.getParams() != null) {
             Iterator var9 = this.getParams().entrySet().iterator();

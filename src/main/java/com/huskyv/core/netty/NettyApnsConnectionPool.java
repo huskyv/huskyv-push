@@ -25,7 +25,7 @@ public class NettyApnsConnectionPool {
 
     private static final String KEY_STORE_TYPE = "PKCS12";
 
-    private static final int PORT = 2197;
+    private static final int PORT = 443;
 
     private volatile boolean isShutdown;
 
